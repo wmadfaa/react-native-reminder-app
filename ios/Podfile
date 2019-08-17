@@ -28,6 +28,8 @@ target 'reminder' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'Firebase/Auth', '~> 6.6.0'
+
   target 'reminderTests' do
     inherit! :search_paths
     # Pods for testing
