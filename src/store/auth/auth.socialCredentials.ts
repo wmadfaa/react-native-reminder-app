@@ -24,7 +24,7 @@ export const getGoogleCredential = async (): Promise<AuthCredential> => {
     try {
       await GoogleSignin.configure({
         offlineAccess: false,
-        webClientId: '567378576255-3g7j87f6inhbg8262ub8fqoumvdaf635.apps.googleusercontent.com',
+        webClientId: '238671088567-829992r9nmoih5ualc1clor29js0b9ld.apps.googleusercontent.com',
       });
       const { idToken } = await GoogleSignin.signIn();
       const authCredential = FBAuth.GoogleAuthProvider.credential(idToken);

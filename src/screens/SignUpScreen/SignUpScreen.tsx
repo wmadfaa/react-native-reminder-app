@@ -48,7 +48,6 @@ const SignUpScreen: NavigationScreenComponent<
 
   const handleSignUpWithEmailAndPassword = () => {
     const { email, password } = formValue;
-    console.log({ email, password });
     signUpWithEmailAndPassword({ email, password });
   };
 

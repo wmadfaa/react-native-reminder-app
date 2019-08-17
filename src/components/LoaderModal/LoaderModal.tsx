@@ -9,14 +9,7 @@ interface LoaderModalProps {
 
 const LoaderModal: React.FC<LoaderModalProps> = ({ loading }) => {
   return (
-    <Modal
-      transparent={true}
-      animationType={'none'}
-      visible={loading}
-      onRequestClose={() => {
-        console.log('close modal');
-      }}
-    >
+    <Modal transparent={true} animationType={'none'} visible={loading}>
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
           <ActivityIndicator animating={loading} />

@@ -30,7 +30,7 @@ const HomeScreen: NavigationScreenComponent<
   HomeScreenProps
 > = ({ isAuthLoading, isAuthenticated, navigation, signOut }) => {
   useEffect(() => {
-    if (!isAuthLoading && isAuthenticated) {
+    if (!isAuthLoading && !isAuthenticated) {
       navigation.navigate(ROUTES.AUTHENTICATION_LOADING);
     }
   }, [isAuthLoading, isAuthenticated, navigation]);
@@ -43,7 +43,7 @@ const HomeScreen: NavigationScreenComponent<
       <Text style={styles.title}>HomeScreen</Text>
       <ButtonsContainer>
         <Button isPrimary onPress={handleSignOut}>
-          SIGN UOT
+          SIGN OUT
         </Button>
       </ButtonsContainer>
     </View>
