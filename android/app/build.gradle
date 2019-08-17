@@ -191,6 +191,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "com.google.firebase:firebase-core:17.0.0"
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
     if (enableHermes) {
