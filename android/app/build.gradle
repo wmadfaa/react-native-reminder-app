@@ -190,6 +190,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.google.firebase:firebase-core:17.0.0"
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
@@ -208,3 +210,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: "com.google.gms.google-services"
