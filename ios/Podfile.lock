@@ -155,6 +155,10 @@ PODS:
     - React-cxxreact (= 0.60.3)
     - React-jsi (= 0.60.3)
   - React-jsinspector (0.60.3)
+  - react-native-ble-plx (1.0.3):
+    - React
+    - react-native-ble-plx-swift
+  - react-native-ble-plx-swift (1.0.3)
   - react-native-fbsdk (1.0.1):
     - React
     - react-native-fbsdk/Core (= 1.0.1)
@@ -228,6 +232,8 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-ble-plx (from `../node_modules/react-native-ble-plx`)
+  - react-native-ble-plx-swift (from `../node_modules/react-native-ble-plx`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -295,6 +301,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-ble-plx:
+    :path: "../node_modules/react-native-ble-plx"
+  react-native-ble-plx-swift:
+    :path: "../node_modules/react-native-ble-plx"
   react-native-fbsdk:
     :path: "../node_modules/react-native-fbsdk"
   React-RCTActionSheet:
@@ -366,6 +376,8 @@ SPEC CHECKSUMS:
   React-jsi: c2b6e57836bcae2677a036384111dc2c58e94369
   React-jsiexecutor: d9023c5c199114d2b6f38ec861a4d923c73d0735
   React-jsinspector: 817b64f3c8a807f09d78620f4f505868d89b26f3
+  react-native-ble-plx: 824d2221d5e2439560a8c1ffd5faf7e288d7c9e3
+  react-native-ble-plx-swift: 730d62df0a68022e4ff81fb6d30d98a01fed3a57
   react-native-fbsdk: 080f3bb23513c5b59b6528543206fe0d1436bb7e
   React-RCTActionSheet: 9c42321fd5652515d706dd722c5a10b1970d7ec8
   React-RCTAnimation: fabb087dde8964c9a835a7fabd0e7e5701787913
@@ -385,6 +397,6 @@ SPEC CHECKSUMS:
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: e989f62845ddbfbdaffa0aa81030f2b47c02a3f1
+PODFILE CHECKSUM: a8e6d1c41b70ce5ed21e73ec0abcd65180b9524b
 
 COCOAPODS: 1.7.5

@@ -29,6 +29,9 @@ target 'reminder' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'Firebase/Auth', '~> 6.6.0'
+  
+  pod 'react-native-ble-plx', :path => '../node_modules/react-native-ble-plx'
+  pod 'react-native-ble-plx-swift', :path => '../node_modules/react-native-ble-plx'
 
   target 'reminderTests' do
     inherit! :search_paths
