@@ -5,11 +5,15 @@ import { NavigationScreenComponent, NavigationStackScreenOptions } from 'react-n
 
 import { ROUTES } from '../../routes';
 import * as authActions from '../../store/auth/auth.actions';
+
 import { ApplicationState } from '../../store/index';
 
 import styles from './HomeScreen.style';
 import LoaderModal from '../../components/LoaderModal/LoaderModal';
 import Button, { ButtonsContainer } from '../../components/Button/Button';
+import NotificationService from '../../services/Notification.service';
+
+const PushNotification = new NotificationService({ onNotification: notification => console.log(notification) });
 
 interface HomeScreenNavigationParams {}
 
@@ -30,6 +34,14 @@ const HomeScreen: NavigationScreenComponent<
   HomeScreenProps
 > = ({ isAuthLoading, isAuthenticated, navigation, signOut }) => {
   useEffect(() => {
+    async function checkPushNotificationsPermissions() {
+      const permissions = await PushNotification.checkPermissions();
+      console.log(permissions);
+    }
+    checkPushNotificationsPermissions();
+  });
+
+  useEffect(() => {
     if (!isAuthLoading && !isAuthenticated) {
       navigation.navigate(ROUTES.AUTHENTICATION_LOADING);
     }
@@ -44,6 +56,15 @@ const HomeScreen: NavigationScreenComponent<
       <ButtonsContainer>
         <Button isPrimary onPress={handleSignOut}>
           SIGN OUT
+        </Button>
+        <Button
+          onPress={() => {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() + 1); // timestamp
+            PushNotification.addNotification({ date: new Date(now), message: 'mmm' });
+          }}
+        >
+          add notification
         </Button>
       </ButtonsContainer>
     </View>
