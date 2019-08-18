@@ -1,7 +1,7 @@
 import firebase, { AuthCredential, RNFirebase } from 'react-native-firebase';
 import { eventChannel, EventChannel } from 'redux-saga';
 import { all, call, fork, put, take, takeEvery } from 'redux-saga/effects';
-import { getFacebookCredential, getGoogleCredential } from './auth.socialCredentials';
+import { getFacebookCredential, getGoogleCredential } from '../../services/SocialCredentials.service';
 import * as actions from './auth.actions';
 import { AuthActionTypes } from './auth.types';
 

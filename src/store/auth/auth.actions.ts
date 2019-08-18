@@ -1,5 +1,5 @@
 import { RNFirebase } from 'react-native-firebase';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAsyncAction, action } from 'typesafe-actions';
 import { AuthActionTypes } from './auth.types';
 
 export interface SignupOrLoginWithEmailAndPasswordPayload {
@@ -42,3 +42,5 @@ export const sendPasswordResetEmail = createAsyncAction(
   AuthActionTypes.SEND_PASSWORD_RESET_EMAIL_SUCCESS,
   AuthActionTypes.SEND_PASSWORD_RESET_EMAIL_FAILURE,
 )<{ email: string }, {}, Error>();
+
+export const clearErrors = () => action(AuthActionTypes.CLEAR_ERRORS);

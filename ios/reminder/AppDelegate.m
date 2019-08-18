@@ -1,16 +1,15 @@
-#import <Firebase.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
-@implementation AppDelegate
+#import <Firebase.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-  [FBSDKAppEvents activateApp];
-}
+#import <RNCPushNotificationIOS.h>
+
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,7 +28,17 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
-
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
+}
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [FBSDKAppEvents activateApp];
+}
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
@@ -42,14 +51,31 @@
   // Add any custom logic here.
   return handled;
 }
-
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-#if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-#else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-#endif
+  [RNCPushNotificationIOS didRegisterUserNotificationSettings:notificationSettings];
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+// Required for the notification event. You must call the completion handler after handling the remote notification.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+// Required for the registrationError event.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  [RNCPushNotificationIOS didFailToRegisterForRemoteNotificationsWithError:error];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RNCPushNotificationIOS didReceiveLocalNotification:notification];
 }
 
 @end
