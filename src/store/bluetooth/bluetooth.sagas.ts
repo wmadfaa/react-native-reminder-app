@@ -92,7 +92,8 @@ const DeviceScanChanel = (config: IDeviceScanChanelOptions) => {
         emit([error, scannedDevice]);
         return;
       }
-      if (scannedDevice != null && scannedDevice.localName === localDeviceName) {
+      if (scannedDevice != null) {
+        // && scannedDevice.localName === localDeviceName
         emit([error, scannedDevice]);
       }
     });
@@ -139,17 +140,18 @@ const checkAndroidPermissions = () => {
 };
 
 function* scan(manager: BleManager) {
-  let scanningChannel;
+  yield put(actions.log('Scanning: Checking permissions...'));
+  yield call(checkAndroidPermissions);
+  yield put(actions.log('Scanning started...'));
+  const scanningChannel = yield call(DeviceScanChanel, { manager });
   try {
-    yield put(actions.log('Scanning: Checking permissions...'));
-    yield call(checkAndroidPermissions);
-    yield put(actions.log('Scanning started...'));
-    scanningChannel = yield call(DeviceScanChanel, { manager });
     while (true) {
       const [error, scannedDevice] = yield take(scanningChannel);
+
       if (error !== null) {
       }
       if (scannedDevice !== null) {
+        yield put(actions.sensorTagFound(scannedDevice));
       }
     }
   } catch (err) {
@@ -173,20 +175,18 @@ function* handleScanning(manager: BleManager) {
 
   while (true) {
     const action = yield take(channel);
-
     switch (action.type) {
       case BluetoothActionTypes.BLE_STATE_UPDATED:
-        bleState = action.state;
+        bleState = action.payload.state;
         break;
       case BluetoothActionTypes.UPDATE_CONNECTION_STATE:
-        connectionState = action.state;
+        connectionState = action.payload.state;
         break;
     }
 
     const enableScanning =
       bleState === State.PoweredOn &&
       (connectionState === ConnectionState.DISCONNECTING || connectionState === ConnectionState.DISCONNECTED);
-
     if (enableScanning) {
       if (scanTask != null) {
         yield cancel(scanTask);
@@ -220,8 +220,10 @@ function* handleBleState(manager: BleManager) {
 function* handleConnection() {
   let testTask;
   while (true) {
-    const { device } = yield take(BluetoothActionTypes.CONNECT);
-
+    const {
+      payload: { device },
+    } = yield take(BluetoothActionTypes.CONNECT);
+    console.log('handleConnection', device);
     const disconnectedChannel = DisconnectChannel(device);
 
     const deviceActionChannel = yield actionChannel([

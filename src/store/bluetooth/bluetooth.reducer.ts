@@ -33,13 +33,13 @@ const reducer: Reducer<BluetoothState> = (state = initialState, action) => {
       if (state.activeDevice) return state;
       return {
         ...state,
-        activeSensorTag: action.payload.device,
+        activeDevice: action.payload.device,
         logs: ['SensorTag found: ' + action.payload.device.id, ...state.logs],
       };
     case BluetoothActionTypes.FORGET_SENSOR_TAG:
       return {
         ...state,
-        activeSensorTag: null,
+        activeDevice: null,
       };
     case BluetoothActionTypes.EXECUTE_TEST:
       if (state.connectionState !== ConnectionState.CONNECTED) {

@@ -6,6 +6,7 @@ import IntroScreen from '../screens/OnboardingScreen/OnboardingScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen/SignUpScreen';
 import ForgetPassword from '../screens/ForgetPassword/ForgetPassword';
+import BluetoothScreen from '../screens/BluetoothScreen/BluetoothScreen';
 
 export enum ROUTES {
   AUTHENTICATION_LOADING = 'AUTHENTICATION_LOADING',
@@ -20,6 +21,7 @@ export enum ROUTES {
 
   ROOT_MAIN = 'ROOT_MAIN',
   MAIN_HOME = 'MAIN_HOME',
+  MAIN_BLUETOOTH = 'MAIN_BLUETOOTH',
 }
 
 const authStack = createStackNavigator({
@@ -34,6 +36,7 @@ const introStack = createStackNavigator({
 
 const mainStack = createStackNavigator({
   [ROUTES.MAIN_HOME]: HomeScreen,
+  [ROUTES.MAIN_BLUETOOTH]: BluetoothScreen,
 });
 
 const app = createSwitchNavigator({

@@ -1,15 +1,23 @@
 import { Store, createStore, applyMiddleware } from 'redux';
-import { persistStore, persistReducer, Persistor } from 'redux-persist';
+import { persistStore, persistReducer, Persistor, createTransform } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { ApplicationState, RootReducer, rootSaga } from './store';
 import AsyncStorage from '@react-native-community/async-storage';
 
+const JSOG = require('jsog');
+
+export const JSOGTransform = createTransform(
+  (inboundState, key) => JSOG.encode(inboundState),
+  (outboundState, key) => JSOG.decode(outboundState),
+);
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   blacklist: [],
+  transforms: [JSOGTransform],
 };
 
 export default function configureStore(): { store: Store<ApplicationState>; persistor: Persistor } {
