@@ -35,8 +35,7 @@ const HomeScreen: NavigationScreenComponent<
 > = ({ isAuthLoading, isAuthenticated, navigation, signOut }) => {
   useEffect(() => {
     async function checkPushNotificationsPermissions() {
-      const permissions = await PushNotification.checkPermissions();
-      console.log(permissions);
+      PushNotification.checkPermissions();
     }
     checkPushNotificationsPermissions();
   });
@@ -66,6 +65,7 @@ const HomeScreen: NavigationScreenComponent<
         >
           add notification
         </Button>
+        <Button onPress={() => navigation.navigate(ROUTES.MAIN_BLUETOOTH)}>bluetooth screen</Button>
       </ButtonsContainer>
     </View>
   );
